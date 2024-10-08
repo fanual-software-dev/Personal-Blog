@@ -47,7 +47,7 @@ const Blogs = ({blogs}) => {
         const data = res.json()
 
         if (res.ok){
-            console.log('success',data,numberOfLikes)
+            console.log('success',data,data.numberOfLikes)
         }
     }
 
@@ -61,7 +61,7 @@ const Blogs = ({blogs}) => {
 
       <div className='likes-comments'>
         <button onClick={LikeCounter}><img src='https://cdn-icons-png.flaticon.com/128/2107/2107845.png'/></button>
-        <p id='likes'>{numberOfLikes}</p>
+        <p id='likes'>{blogs.numberOfLikes+numberOfLikes}</p>
       </div>
     </div>
   )
