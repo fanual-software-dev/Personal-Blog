@@ -1,55 +1,36 @@
 import React, { useState } from 'react'
+import { useblogContext } from '../hooks/Bloghooks'
+import formatDistanceToNow from 'date-fns/formatDistanceToNow'
 
 const Blogs = ({blogs}) => {
 
-    // if (blogs.numberOfLikes>=0){
-    //     document.getElementById('likes').innerHTML = blogs.numberOfLikes
-    // }
+  const {dispatch} = useblogContext()
 
-    const [numberOfLikes,setnumberOfLikes] = useState(blogs.numberOfLikes)
+  const LikeCounter = ()=>{
 
-    const LikeCounter = async ()=>{
+  }
 
-        console.log('program exceuted',blogs._id)
-        const origina_data = await fetch(`/api/blogs/${blogs._id}`)
-        const jsondata = await origina_data.json()
-        if (!numberOfLikes){
-            setnumberOfLikes(1)
-        }
+  const DELETE_BLOG = async()=>{
 
-        else{
+    const res = await fetch(`/api/blogs/${blogs._id}`,{
+      method:'DELETE',
+      headers:{
+        'Content-Type':'application/json'
+      }
+    })
 
-          if (origina_data.ok){
-            setnumberOfLikes(jsondata.numberOfLikes+1)
-          }
+    const blog = await res.json()
 
-          
-          
-         
-            
-        }
-
-        const NumberOflikes = {numberOfLikes}
-
-    
-
-       
-
-        const res = await fetch(`/api/blogs/${blogs._id}`,{
-            method:"PATCH",
-            body: JSON.stringify(NumberOflikes),
-            headers:{
-                'Content-Type':'application/json'
-            }
-                      
-        })
-
-        const data = res.json()
-
-        if (res.ok){
-            console.log('success',data,data.numberOfLikes)
-        }
+    if (res.ok){
+      dispatch({type:'DELETE_BLOG',payload:blog})
     }
+
+    else{
+      alert('Opps! something went wrong while deleting the blog')
+    }
+
+  }
+
 
   return (
     <div className='blogs'>
@@ -59,9 +40,13 @@ const Blogs = ({blogs}) => {
         <p className='main'>{blogs.main}</p>
       </div>
 
-      <div className='likes-comments'>
-        <button onClick={LikeCounter}><img src='https://cdn-icons-png.flaticon.com/128/2107/2107845.png'/></button>
-        <p id='likes'>{blogs.numberOfLikes+numberOfLikes}</p>
+      <div className='likes-comments-div'>
+        <div className='likes-comments'>
+          <button onClick={'class'}><img src='https://cdn-icons-png.flaticon.com/128/2107/2107845.png'/></button>
+          <p id='likes'>{blogs.numberOfLikes}</p>
+        </div>
+        <p className='time'>{formatDistanceToNow(new Date(blogs.createdAt),{addSuffix:true})}</p>
+        <span onClick={DELETE_BLOG} className='material-icons'>delete</span>
       </div>
     </div>
   )

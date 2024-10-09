@@ -1,34 +1,41 @@
 import React from 'react'
 import Blogs from './Blogs'
 
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
+import { useblogContext } from '../hooks/Bloghooks'
+import CreatBlog from './CreatBlog'
 
 const Main = () => {
 
-    const [blogs,setBlogs] = useState(null)
+    const {blogs, dispatch} = useblogContext()
     useEffect(()=>{
 
-        const featchWorkouts = async ()=>{
+        const featchBlogs = async ()=>{
 
             const response = await fetch('/api/blogs')
             const blogs = await response.json()
             if (response.ok){
-                setBlogs(blogs)
+                dispatch({type:'SET_BLOGS',payload:blogs})
+                console.log(blogs)
             } else{
                 console.log('error while fetching data')
             }
         }
 
         
-        featchWorkouts()
+        featchBlogs()
 
-    },[])
+    },[dispatch])
 
   return (
-    <div className='main-page'>
-      {blogs && blogs.map((blog)=>(
-        <Blogs key={blog._id} blogs={blog}/>
-      ))}
+    <div className='main-page-div'>
+      <div className='main-page'>
+        {blogs && blogs.map((blog)=>(
+          <Blogs key={blog._id} blogs={blog}/>
+        ))}
+      </div>
+
+      <CreatBlog></CreatBlog>
     </div>
   )
 }
