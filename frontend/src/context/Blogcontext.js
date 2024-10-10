@@ -2,7 +2,16 @@ import React, { createContext, useReducer } from 'react'
 
 export const BlogContext = createContext()
 
+
+
 export const Blogreducer = (state,action)=>{
+  
+  // function findById(value,index,array){
+  //   return value===action.payload._id
+  // }
+
+  // const newBlog = state.blog.find(findById)
+  // newBlog.numberOfLikes = action.payload.numberOfLikes
 
   switch (action.type){
     case 'SET_BLOGS':
@@ -18,6 +27,11 @@ export const Blogreducer = (state,action)=>{
     case 'DELETE_BLOG':
       return {
         blogs: state.blogs.filter((b) => b._id!==action.payload._id)
+      }
+    case 'ADD_LIKE':
+
+      return {
+        blogs:[...state.blogs]
       }
     default :
     
