@@ -43,17 +43,17 @@ const CreatBlog = () => {
         < form onSubmit={CREATE_BLOG}>
             <div className='input-div'>
                 <label>Title</label>
-                <input type='text' onChange={(e)=>setTitle(e.target.value)} value={title} placeholder='Type your story title'/>
+                <input type='text' onChange={(e)=>setTitle(e.target.value)} value={title} placeholder='Type your story title' required/>
             </div>
 
             <div className='input-div'>
                 <label>Image Url</label>
-                <input type='text' onChange={(e)=>setImage(e.target.value)} value={image} placeholder='Put image url'/>
+                <input type='text' onChange={(e)=>setImage(e.target.value)} value={image} placeholder='Put image url' required/>
             </div>
 
             <div className='input-div'>
                 <label>Story</label>
-                <textarea onChange={(e)=>setMain(e.target.value)} value={main} placeholder='we wanna hear about Your story. Start Writing...'/>
+                <textarea onChange={(e)=>setMain(e.target.value)} value={main} placeholder='we wanna hear about Your story. Start Writing...' required/>
             </div>
 
             <button type='submit' className='form-button'>Create Blog</button>
