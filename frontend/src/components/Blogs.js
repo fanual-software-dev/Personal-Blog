@@ -39,6 +39,7 @@ const Blogs = ({blogs}) => {
 
     if (res.ok){
       dispatch({type:'DELETE_BLOG',payload:blog})
+    
     }
 
     else{

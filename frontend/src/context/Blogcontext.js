@@ -31,13 +31,21 @@ export const Blogreducer = (state,action)=>{
     case 'ADD_LIKE':
 
       return {
-        blogs:[...state.blogs]
+        blogs: state.blogs.map((blog)=>{
+          if (blog._id===action.payload._id){
+            console.log("original blog",blog)
+            blog["numberOfLikes"] = action.payload.numberOfLikes + 1
+          }
+
+        
+          return blog
+          
+        })}
+
+    default:
+      return{
+        state
       }
-    default :
-    
-    return{
-      state
-    }
   }
 
 }
